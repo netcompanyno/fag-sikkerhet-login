@@ -25,9 +25,11 @@ public class LoginRestService {
     @POST
     public Response login(final LoginDto loginDto) {
         final String userToken = loginService.getUserToken(loginDto);
+
         if (userToken == null) {
             return Response.status(Response.Status.FORBIDDEN).build();
         }
+
         return Response.ok(userToken).build();
     }
 }

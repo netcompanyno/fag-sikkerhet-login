@@ -7,6 +7,8 @@ public interface UserBean {
 
     void setUser(String user);
 
+    default boolean isTwoFactor() { return true; }
+
     default boolean isLoggedIn() {
         return false;
     }

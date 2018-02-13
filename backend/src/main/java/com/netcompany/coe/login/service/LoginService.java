@@ -28,12 +28,13 @@ public class LoginService {
     public String getUserToken(final LoginDto loginDto) {
         final Optional<UserDto> user = userDatabase.findUser(loginDto.getUsername());
 
-        if(!user.isPresent()) {
+        if (!user.isPresent()) {
             passwordEncoder.matches(loginDto.getPassword(), dummyPassword);
+
             return null;
         }
 
-        if(passwordEncoder.matches(loginDto.getPassword(), user.get().getPasswordHash())) {
+        if (passwordEncoder.matches(loginDto.getPassword(), user.get().getPasswordHash())) {
             return loginDatabase.createLoginToken(user.get()).toString();
         }
 
