@@ -41,3 +41,5 @@ xcuserdata/
 # System Files
 .DS_Store
 Thumbs.db
+
+.idea/vcs.xml
