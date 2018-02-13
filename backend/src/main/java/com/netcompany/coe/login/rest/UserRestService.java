@@ -1,6 +1,7 @@
 package com.netcompany.coe.login.rest;
 
 import com.netcompany.coe.login.UserBean;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.Consumes;
@@ -14,17 +15,15 @@ import javax.ws.rs.core.Response;
 @Path("user")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@AllArgsConstructor
 public class UserRestService {
-    private final UserBean userBean;
 
-    public UserRestService(UserBean userBean) {
-        this.userBean = userBean;
-    }
+    private final UserBean userBean;
 
     @GET
     public Response userInfo() {
         final String username = userBean.getUser();
-        if(username == null) {
+        if (username == null) {
             return Response.status(Response.Status.FORBIDDEN).build();
         }
 

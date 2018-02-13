@@ -2,6 +2,7 @@ package com.netcompany.coe.login.rest;
 
 import com.netcompany.coe.login.dto.LoginDto;
 import com.netcompany.coe.login.service.LoginService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.Consumes;
@@ -15,12 +16,10 @@ import javax.ws.rs.core.Response;
 @Path("/login")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@AllArgsConstructor
 public class LoginRestService {
-    private final LoginService loginService;
 
-    public LoginRestService(LoginService loginService) {
-        this.loginService = loginService;
-    }
+    private final LoginService loginService;
 
     @POST
     public Response login(final LoginDto loginDto) {

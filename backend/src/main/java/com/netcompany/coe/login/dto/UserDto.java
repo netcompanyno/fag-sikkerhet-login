@@ -1,19 +1,15 @@
 package com.netcompany.coe.login.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Value;
+
+@Value
+@Builder
+@AllArgsConstructor
 public class UserDto {
-    private final String username;
-    private final String passwordHash;
 
-    public UserDto(String username, String passwordHash) {
-        this.username = username;
-        this.passwordHash = passwordHash;
-    }
+    String username;
+    String passwordHash;
 
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPasswordHash() {
-        return passwordHash;
-    }
 }

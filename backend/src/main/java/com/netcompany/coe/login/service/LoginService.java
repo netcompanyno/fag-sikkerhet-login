@@ -13,16 +13,18 @@ import java.util.Optional;
 
 @Service
 public class LoginService {
+
     private final UserDatabase userDatabase;
     private final LoginDatabase loginDatabase;
     private final PasswordEncoder passwordEncoder;
     private final ThrottlingDatabase throttlingDatabase;
     private final String dummyPassword;
 
-    public LoginService(UserDatabase userDatabase,
-                        LoginDatabase loginDatabase,
-                        PasswordEncoder passwordEncoder,
-                        ThrottlingDatabase throttlingDatabase) {
+    public LoginService(
+            UserDatabase userDatabase,
+            LoginDatabase loginDatabase,
+            PasswordEncoder passwordEncoder,
+            ThrottlingDatabase throttlingDatabase) {
         this.userDatabase = userDatabase;
         this.loginDatabase = loginDatabase;
         this.passwordEncoder = passwordEncoder;
@@ -34,11 +36,12 @@ public class LoginService {
         final Optional<UserDto> user = userDatabase.findUser(loginDto.getUsername());
 
         if (!user.isPresent()) {
-            passwordEncoder.matches(loginDto.getPassword(), dummyPassword);
+            fakePasswordCheck(loginDto);
             return null;
         }
 
         if (throttlingDatabase.isIllegalLoginAttempt(user.get().getUsername())) {
+            fakePasswordCheck(loginDto);
             throttlingDatabase.recordLoginAttempt(user.get().getUsername());
             System.err.println("(" + LocalDateTime.now() + ") Throttling user [" + user.get().getUsername() + "]");
             return null;
@@ -52,4 +55,9 @@ public class LoginService {
         throttlingDatabase.recordLoginAttempt(user.get().getUsername());
         return null;
     }
+
+    private boolean fakePasswordCheck(LoginDto loginDto) {
+        return passwordEncoder.matches(loginDto.getPassword(), dummyPassword);
+    }
+
 }
