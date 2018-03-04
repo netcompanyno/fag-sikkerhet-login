@@ -9,7 +9,7 @@
     <packaging>jar</packaging>
 
     <name>login</name>
-    <description></description>
+    <description/>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -27,6 +27,12 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.0</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>

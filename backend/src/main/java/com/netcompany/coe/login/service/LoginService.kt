@@ -1,6 +1,5 @@
 package com.netcompany.coe.login.service
 
-import com.netcompany.coe.login.data.LoginDatabase
 import com.netcompany.coe.login.data.ThrottlingDatabase
 import com.netcompany.coe.login.data.UserDatabase
 import com.netcompany.coe.login.dto.LoginDto
@@ -12,7 +11,7 @@ import java.time.LocalDateTime
 @Service
 class LoginService(
         private val userDatabase: UserDatabase,
-        private val loginDatabase: LoginDatabase,
+        private val authenticationService: AuthenticationService,
         private val passwordEncoder: PasswordEncoder,
         private val throttlingDatabase: ThrottlingDatabase
 ) {
@@ -37,7 +36,7 @@ class LoginService(
         if (passwordEncoder.matches(loginDto.password, user.passwordHash)) {
             throttlingDatabase.successfulLogin(user.username)
             log.info("Successful login for user [{}]", user.username)
-            return loginDatabase.createLoginToken(user).toString()
+            return authenticationService.createAuthenticationToken(user)
         }
 
         throttlingDatabase.recordLoginAttempt(user.username)
