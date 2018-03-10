@@ -1,7 +1,7 @@
 package com.netcompany.coe.login
 
 interface UserBean {
-    var user : String?
+    var username : String?
     fun isLoggedIn(): Boolean = false
     fun isWebContext(): Boolean = false
 }

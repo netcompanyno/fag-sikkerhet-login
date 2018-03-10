@@ -7,7 +7,7 @@
         </encoder>
     </appender>
 
-    <logger name="com.netcompany" level="DEBUG">
+    <logger name="com.netcompany" level="DEBUG" additivity="false">
         <appender-ref ref="STDOUT"/>
     </logger>
 

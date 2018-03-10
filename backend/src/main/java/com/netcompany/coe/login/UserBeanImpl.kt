@@ -12,10 +12,10 @@ class UserBeanImpl(
         @Context private val servletRequest: HttpServletRequest
 ) : UserBean {
 
-    override var user: String? = null
+    override var username: String? = null
 
     override fun isLoggedIn(): Boolean {
-        return user != null
+        return username != null
     }
 
     override fun isWebContext(): Boolean {
