@@ -5,7 +5,7 @@ import com.netcompany.coe.login.data.UserDatabase
 import com.netcompany.coe.login.data.UserSettingsDatabase
 import com.netcompany.coe.login.dto.LoginDto
 import com.netcompany.coe.login.dto.SecurityStepLoginDto
-import com.netcompany.coe.login.enums.SecurityStep.TWO_FACTOR_AUTH_TOTP
+import com.netcompany.coe.login.enums.SecurityStep.TOTP
 import com.netcompany.coe.login.exceptions.AuthenticationException
 import org.slf4j.LoggerFactory
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -49,7 +49,7 @@ class LoginService(
 
     fun getAuthenticationToken(securityStepLoginDto: SecurityStepLoginDto): String {
         return when (securityStepLoginDto.securityStep) {
-            TWO_FACTOR_AUTH_TOTP -> totpService.createAuthenticationToken(securityStepLoginDto)
+            TOTP -> totpService.createAuthenticationToken(securityStepLoginDto)
         }
     }
 

@@ -1,7 +1,7 @@
 package com.netcompany.coe.login.data
 
 import com.netcompany.coe.login.dto.UserSettingsDto
-import com.netcompany.coe.login.enums.SecurityStep.TWO_FACTOR_AUTH_TOTP
+import com.netcompany.coe.login.enums.SecurityStep.TOTP
 import org.springframework.stereotype.Repository
 
 private val DEFAULT = UserSettingsDto(securitySteps = emptySet())
@@ -10,7 +10,7 @@ private val DEFAULT = UserSettingsDto(securitySteps = emptySet())
 class UserSettingsDatabase {
 
     private val usernameToSettings = mapOf(
-            "admin" to UserSettingsDto(securitySteps = setOf(TWO_FACTOR_AUTH_TOTP))
+            "admin" to UserSettingsDto(securitySteps = setOf(TOTP))
     )
 
 

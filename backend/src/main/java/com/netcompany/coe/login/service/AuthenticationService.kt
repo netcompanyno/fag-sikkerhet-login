@@ -3,9 +3,9 @@ package com.netcompany.coe.login.service
 import com.netcompany.coe.login.dto.SecurityStepLoginDto
 import com.netcompany.coe.login.dto.UserDto
 import com.netcompany.coe.login.dto.UserSettingsDto
-import com.netcompany.coe.login.enums.AuthenticationTokenClaim
-import com.netcompany.coe.login.enums.AuthenticationTokenClaim.SECURITY_STEPS
-import com.netcompany.coe.login.enums.AuthenticationTokenClaim.SECURITY_STEPS_COMPLETED
+import com.netcompany.coe.login.enums.ClaimName
+import com.netcompany.coe.login.enums.ClaimName.SECURITY_STEPS
+import com.netcompany.coe.login.enums.ClaimName.SECURITY_STEPS_COMPLETED
 import com.netcompany.coe.login.enums.SecurityStep
 import com.netcompany.coe.login.exceptions.AuthenticationException
 import io.jsonwebtoken.Claims
@@ -24,8 +24,8 @@ class AuthenticationService(
     fun createAuthenticationToken(user: UserDto, userSettings: UserSettingsDto): String {
         val claims = Jwts.claims()
         claims.subject = user.username
-        claims[SECURITY_STEPS.name] = userSettings.securitySteps
-        claims[SECURITY_STEPS_COMPLETED.name] = emptyList<SecurityStep>()
+        claims[SECURITY_STEPS.jsonName] = userSettings.securitySteps
+        claims[SECURITY_STEPS_COMPLETED.jsonName] = emptyList<SecurityStep>()
         return createCompactJws(claims)
     }
 
@@ -47,22 +47,22 @@ class AuthenticationService(
         val claims = parseClaims(securityStepLoginDto.authenticationToken)
         val securityStepsCompleted = findSecuritySteps(claims, SECURITY_STEPS_COMPLETED)
 
-        claims[SECURITY_STEPS_COMPLETED.name] = securityStepsCompleted.plus(securityStepLoginDto.securityStep)
+        claims[SECURITY_STEPS_COMPLETED.jsonName] = securityStepsCompleted.plus(securityStepLoginDto.securityStep)
         return createCompactJws(claims)
     }
 
-    private fun findSecuritySteps(authenticationToken: String, claimName: AuthenticationTokenClaim) =
+    private fun findSecuritySteps(authenticationToken: String, claimName: ClaimName) =
             findSecuritySteps(parseClaims(authenticationToken), claimName)
 
-    private fun findSecuritySteps(claims: Claims, claimName: AuthenticationTokenClaim): Set<SecurityStep> =
+    private fun findSecuritySteps(claims: Claims, claimName: ClaimName): Set<SecurityStep> =
             toSecuritySteps(findClaim(claims, claimName))
 
     private fun toSecuritySteps(securityStepStrings: List<*>): Set<SecurityStep> {
         return securityStepStrings.map { SecurityStep.valueOf(it.toString()) }.toSet()
     }
 
-    private fun findClaim(claims: Claims, claimName: Any): List<*> {
-        return claims[claimName.toString()] as List<*>
+    private fun findClaim(claims: Claims, claimName: ClaimName): List<*> {
+        return claims[claimName.jsonName] as List<*>
     }
 
     private fun parseClaims(authenticationToken: String): Claims {
