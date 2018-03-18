@@ -9,17 +9,26 @@ const log = new Logger('AuthenticationGuard');
 @Injectable()
 export class AuthenticationGuard implements CanActivate {
 
-  constructor(private router: Router,
-              private authenticationService: AuthenticationTokenService) {
+  constructor(private router: Router) {
   }
 
   canActivate(): boolean {
-    if (this.authenticationService.isAuthenticated()) {
+    if (AuthenticationTokenService.isAuthenticated()) {
       return true;
     }
 
-    log.debug('Not authenticated, redirecting...');
-    this.router.navigate(['/login'], {replaceUrl: true});
+    if (AuthenticationTokenService.isPartiallyAuthenticated()) {
+      if (AuthenticationTokenService.isTotpMissing()) {
+        log.debug('Totp missing, redirecting...');
+        this.router.navigate(['/totp'], {replaceUrl: true});
+      } else {
+        log.debug('Error, redirecting...');
+        this.router.navigate(['/error'], {replaceUrl: true});
+      }
+    } else {
+      log.debug('Not authenticated, redirecting...');
+      this.router.navigate(['/login'], {replaceUrl: true});
+    }
     return false;
   }
 

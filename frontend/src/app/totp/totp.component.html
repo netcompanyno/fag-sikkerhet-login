@@ -1,0 +1,37 @@
+<div class="totp-container bg-light">
+  <div class="totp-box">
+    <h1>TotpService</h1>
+    <div>
+      <h6 class="d-inline-block">v{{version}}</h6>
+    </div>
+    <div class="container">
+      <div class="card col-md-6 mt-3 mx-auto">
+        <div class="card-body">
+          <h4 class="card-title text-center">
+            <i class="fa fa-3x fa-user-circle-o text-muted"></i>
+          </h4>
+          <form (ngSubmit)="totp()" [formGroup]="totpForm" novalidate>
+            <div class="alert alert-danger" [hidden]="!error || isLoading" translate>
+              Password incorrect.
+            </div>
+            <div class="form-group">
+              <label class="d-block">
+                <input type="number" class="form-control" formControlName="password"
+                       [placeholder]="'One-time password' | translate" required/>
+                <span hidden translate>Password</span>
+                <small [hidden]="totpForm.controls.password.valid || totpForm.controls.password.untouched"
+                       class="text-danger" translate>
+                  Password is required
+                </small>
+              </label>
+            </div>
+            <button class="btn btn-primary w-100" type="submit" [disabled]="totpForm.invalid || isLoading">
+              <i class="fa fa-cog fa-spin" [hidden]="!isLoading"></i>
+              <span translate>Submit</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -5,12 +5,12 @@ import {AuthenticationTokenService} from "./authentication-token.service";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private authenticationTokenService: AuthenticationTokenService) {
+  constructor() {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (this.authenticationTokenService.isAuthenticated()) {
-      const credentials = this.authenticationTokenService.credentials;
+    if (AuthenticationTokenService.isAuthenticated()) {
+      const credentials = AuthenticationTokenService.authenticatedCredentials;
       const authReq = req.clone({headers: req.headers.set('Authorization', credentials.token)});
       return next.handle(authReq);
     }

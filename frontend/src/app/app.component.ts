@@ -1,12 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
-import { Title } from '@angular/platform-browser';
-import { TranslateService } from '@ngx-translate/core';
-import { merge } from 'rxjs/observable/merge';
-import { filter, map, mergeMap } from 'rxjs/operators';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
+import {filter, map, mergeMap} from 'rxjs/operators';
 
-import { environment } from '../environments/environment';
-import { Logger } from './core/logger.service';
+import {environment} from '../environments/environment';
+import {Logger} from './core/logger.service';
 
 const log = new Logger('App');
 
@@ -18,7 +15,8 @@ const log = new Logger('App');
 export class AppComponent implements OnInit {
 
   constructor(private router: Router,
-              private activatedRoute: ActivatedRoute) { }
+              private activatedRoute: ActivatedRoute) {
+  }
 
   ngOnInit() {
     // Setup logger

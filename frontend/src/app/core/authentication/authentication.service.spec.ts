@@ -104,7 +104,7 @@ describe('AuthenticationService', () => {
       loginRequest.subscribe(() => {
         expect(authenticationService.isAuthenticated()).toBe(true);
 
-        const request = authenticationService.logout();
+        const request = AuthenticationService.logout();
         tick();
 
         request.subscribe(() => {
@@ -129,7 +129,7 @@ describe('AuthenticationService', () => {
       loginRequest.subscribe(() => {
         expect(authenticationService.isAuthenticated()).toBe(true);
 
-        const request = authenticationService.logout();
+        const request = AuthenticationService.logout();
         tick();
 
         request.subscribe(() => {
