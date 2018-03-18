@@ -4,7 +4,7 @@ import org.springframework.stereotype.Repository
 import java.time.LocalDateTime
 import java.util.concurrent.ConcurrentHashMap
 
-private const val TIME_SPAN_MINUTES = 1
+private const val TIME_SPAN_MINUTES = 1L
 private const val MAX_ALLOWED_ATTEMPTS_IN_TIME_SPAN = 5
 
 @Repository
@@ -31,5 +31,5 @@ class ThrottlingDatabase {
 }
 
 private fun isInTimeSpan(timestamp: LocalDateTime): Boolean {
-    return timestamp.isAfter(LocalDateTime.now().minusMinutes(TIME_SPAN_MINUTES.toLong()))
+    return timestamp.isAfter(LocalDateTime.now().minusMinutes(TIME_SPAN_MINUTES))
 }
