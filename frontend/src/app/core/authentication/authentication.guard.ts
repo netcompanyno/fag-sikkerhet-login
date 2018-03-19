@@ -23,6 +23,7 @@ export class AuthenticationGuard implements CanActivate {
         this.router.navigate(['/totp'], {replaceUrl: true});
       } else {
         log.debug('Error, redirecting...');
+        // TODO 'error' fins ikke
         this.router.navigate(['/error'], {replaceUrl: true});
       }
     } else {

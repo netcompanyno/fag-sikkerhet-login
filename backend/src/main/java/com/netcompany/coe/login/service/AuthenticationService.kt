@@ -76,6 +76,7 @@ class AuthenticationService(
         }
     }
 
+    // TODO Utløpstidspunkt
     private fun createCompactJws(claims: Claims): String {
         return Jwts.builder()
                 .setClaims(claims)

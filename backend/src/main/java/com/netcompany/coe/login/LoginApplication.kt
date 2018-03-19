@@ -7,7 +7,7 @@ import org.springframework.boot.runApplication
 
 @SpringBootApplication
 @EnableAutoConfiguration(exclude = [ErrorMvcAutoConfiguration::class])
-open class LoginApplication
+class LoginApplication
 
 fun main(args: Array<String>) {
     runApplication<LoginApplication>(*args)

@@ -13,19 +13,20 @@ import java.lang.System.getenv
 
 
 @Configuration
-open class BeanConfig(
+class BeanConfig(
         @Value("\${totp.windowSize}") private val totpWindowSize: Int
 ) {
 
     @Bean
-    open fun passwordEncoder(): PasswordEncoder = Pbkdf2PasswordEncoder()
+    fun passwordEncoder(): PasswordEncoder = Pbkdf2PasswordEncoder()
 
     @Bean(JWS_SECRET_KEY_BASE_64)
-    open fun jwsSecretKey(): String = getenv(JWS_SECRET_KEY_BASE_64)
+    fun jwsSecretKey(): String = getenv(JWS_SECRET_KEY_BASE_64)
 
     @Bean
-    open fun googleAuthenticator(): IGoogleAuthenticator = GoogleAuthenticator(
+    fun googleAuthenticator(): IGoogleAuthenticator = GoogleAuthenticator(
             GoogleAuthenticatorConfig.GoogleAuthenticatorConfigBuilder()
                     .setWindowSize(totpWindowSize)
-                    .build())
+                    .build()
+    )
 }

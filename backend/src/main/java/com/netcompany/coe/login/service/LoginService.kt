@@ -25,6 +25,7 @@ class LoginService(
     private val dummyPassword: String = passwordEncoder.encode("x")
 
     fun getAuthenticationToken(loginDto: LoginDto): String {
+        // TODO Bytt med throttling?
         val user = userDatabase.findUser(loginDto.username) ?: run {
             fakePasswordCheck(loginDto)
             throw AuthenticationException("User not found [${loginDto.username}]")

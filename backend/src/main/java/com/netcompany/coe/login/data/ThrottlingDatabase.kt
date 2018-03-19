@@ -4,12 +4,14 @@ import org.springframework.stereotype.Repository
 import java.time.LocalDateTime
 import java.util.concurrent.ConcurrentHashMap
 
+// TODO properties
 private const val TIME_SPAN_MINUTES = 1L
 private const val MAX_ALLOWED_ATTEMPTS_IN_TIME_SPAN = 5
 
 @Repository
 class ThrottlingDatabase {
 
+    // TODO Ta hensyn til denial of service attack?
     private val userLoginAttempts = ConcurrentHashMap<String, List<LocalDateTime>>()
 
     fun isIllegalLoginAttempt(username: String): Boolean {
