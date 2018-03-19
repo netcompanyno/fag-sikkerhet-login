@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit {
       .subscribe(() => this.router.navigate(['/login'], {replaceUrl: true}));
   }
 
-  static get username(): string | null {
+  get username(): string | null {
     const credentials = AuthenticationTokenService.authenticatedCredentials;
     return credentials ? credentials.username : null;
   }
