@@ -10,7 +10,8 @@ import javax.ws.rs.ext.Provider
 @Provider
 class AuthenticationExceptionMapper : ExceptionMapper<AuthenticationException> {
 
-    private val log = LoggerFactory.getLogger(this.javaClass.name)
+    // TODO mer sofistikert?
+    private val log = LoggerFactory.getLogger(javaClass)
 
     override fun toResponse(e: AuthenticationException): Response {
         log.warn(e.message, e)
